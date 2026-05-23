@@ -1,5 +1,7 @@
 echo "github user: $GH_USER..."
 
+echo "Path is $PATH" >> tmp.log
+
 echo "*** Attempting Docker Login..."
 echo $GH_PAT | docker login ghcr.io -u $GH_USER --password-stdin
 

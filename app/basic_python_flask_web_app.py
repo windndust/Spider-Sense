@@ -110,7 +110,8 @@ def deploy():
             capture_output=True,
             text=True,
             check=True,
-            env=env
+            env=env,
+            timeout=60
         )
         spiderSense.info(f"Return Code: {result.returncode}, Command: {result.args}")
         spiderSense.info(f"Script stdout:\n{result.stdout.strip()}")
