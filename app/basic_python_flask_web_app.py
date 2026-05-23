@@ -104,8 +104,13 @@ def deploy():
         env["GH_NAME"] = cast(str, name)
         env["CONFIG_LOCATION"] = CONFIG_LOCATION["1"]
 
+        script_path = os.path.join(DEPLOY_SCRIPTS, "deploy.bash")
+
+        spiderSense.info(f"Checking script existence: {os.path.exists(script_path)}")
+        spiderSense.info(f"Checking script permissions (readable): {os.access(script_path, os.R_OK)}")
+        spiderSense.info(f"Checking script permissions (executable): {os.access(script_path, os.X_OK)}")
         result = subprocess.run(
-            ["bash" , DEPLOY_SCRIPTS+"deploy.bash"],
+            ["bash" , script_path],
             shell=True,
             capture_output=True,
             text=True,
