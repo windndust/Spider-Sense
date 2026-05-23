@@ -3,3 +3,4 @@ venv/
 .theia/
 *.log
 log/
+secrets.env
