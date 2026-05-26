@@ -99,9 +99,6 @@ def deploy():
     try:
         script_path = os.path.join(DEPLOY_SCRIPTS, "deploy.bash")
 
-        spiderSense.info(f"Checking script existence: {os.path.exists(script_path)}")
-        spiderSense.info(f"Checking script permissions (readable): {os.access(script_path, os.R_OK)}")
-        spiderSense.info(f"Checking script permissions (executable): {os.access(script_path, os.X_OK)}")
         result = subprocess.run(
             ["sudo", 
             f"GH_USER="+cast(str, login), 
@@ -110,7 +107,6 @@ def deploy():
             f"GH_NAME="+cast(str, name),
             f"CONFIG_LOCATION={CONFIG_LOCATION['1']}",
             script_path],
-            shell=True,
             capture_output=True,
             text=True,
             check=True,
