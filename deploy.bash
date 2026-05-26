@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "github user: $GH_USER..."
 
 echo "Path is $PATH" >> tmp.log
