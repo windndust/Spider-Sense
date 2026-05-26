@@ -97,25 +97,23 @@ def deploy():
 
     start_time = time.time()
     try:
-        env = os.environ.copy()
-        env["GH_USER"] = cast(str, login)
-        env["GH_PAT"] = gh_pat
-        env["GH_URL"] = cast(str, package_url)
-        env["GH_NAME"] = cast(str, name)
-        env["CONFIG_LOCATION"] = CONFIG_LOCATION["1"]
-
         script_path = os.path.join(DEPLOY_SCRIPTS, "deploy.bash")
 
         spiderSense.info(f"Checking script existence: {os.path.exists(script_path)}")
         spiderSense.info(f"Checking script permissions (readable): {os.access(script_path, os.R_OK)}")
         spiderSense.info(f"Checking script permissions (executable): {os.access(script_path, os.X_OK)}")
         result = subprocess.run(
-            ["bash" , script_path],
+            ["sudo", 
+            f"GH_USER="+cast(str, login), 
+            f"GH_PAT={gh_pat}", 
+            f"GH_URL="+cast(str, package_url),
+            f"GH_NAME="+cast(str, name),
+            f"CONFIG_LOCATION={CONFIG_LOCATION['1']}",
+            script_path],
             shell=True,
             capture_output=True,
             text=True,
             check=True,
-            env=env,
             timeout=60
         )
         spiderSense.info(f"Return Code: {result.returncode}, Command: {result.args}")
